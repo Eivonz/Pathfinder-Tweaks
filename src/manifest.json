@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Pathfinder Tweaks",
-    "version": "1.1",
+    "version": "1.2",
     "description": "Fixes various clientside Pathfinder issues",
     "homepage_url": "https://github.com/Eivonz/Pathfinder-Tweaks",
     "author": "Eibon",
@@ -23,7 +23,7 @@
 
     "content_scripts": [
       {
-        "matches": ["*://*.npsi.space/*"],
+        "matches": ["<all_urls>"],
         "js": [
           "pft.js"
         ]
