@@ -1,7 +1,5 @@
 
 
-
-
 function listener(details) {
 
     let filter = browser.webRequest.filterResponseData(details.requestId);
@@ -18,8 +16,26 @@ function listener(details) {
 
         // Looking for minified options in minified /public/js/v2.2.4/app/mappage.js
         if (str.includes('order:[1,"asc"]')) {
-            str = str.replaceAll('order:[1,"asc"]', 'order:[2,"desc"]');
-            //console.log(details.type, details.url);
+            //str = str.replaceAll('order:[1,"asc"]', 'order:[2,"desc"]');
+
+            let injection = `
+                order:[1,"asc"],
+                stateSave: true,
+                stateSaveCallback: function (settings, data) {
+                    // settings.sInstance : Unique idenfier for specific table instances, but lets use a general savestate shared for all tables of same type
+                    let key = settings.sInstance.replace(/.(?<=\-)[^-]*$/,"");
+                    localStorage.setItem(
+                        'DataTables_' + key,
+                        JSON.stringify(data)
+                    );
+                },
+                stateLoadCallback: function (settings) {
+                    let key = settings.sInstance.replace(/.(?<=\-)[^-]*$/,"");
+                    return JSON.parse(localStorage.getItem('DataTables_' + key));
+                }
+            `;
+
+            str = str.replaceAll('order:[1,"asc"]', injection);
         }
 
         filter.write(encoder.encode(str));

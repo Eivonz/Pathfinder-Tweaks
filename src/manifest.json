@@ -1,16 +1,16 @@
 {
     "manifest_version": 3,
     "name": "Pathfinder Tweaks",
-    "version": "1.0",
-    "description": "Fixes various clientside Pathfinder issues (Biomass Transit)",
-    "homepage_url": "https://github.com/Eivonz/",
+    "version": "1.1",
+    "description": "Fixes various clientside Pathfinder issues",
+    "homepage_url": "https://github.com/Eivonz/Pathfinder-Tweaks",
     "author": "Eibon",
     
     "permissions": [
         "scripting",
         "activeTab",
         "tabs",
-        "notifications",
+        "storage",
         
         "webRequest",
         "webRequestFilterResponse",
@@ -24,7 +24,9 @@
     "content_scripts": [
       {
         "matches": ["*://*.npsi.space/*"],
-        "js": ["pft.js"]
+        "js": [
+          "pft.js"
+        ]
       }
     ],
 

@@ -7,5 +7,3 @@ function handleError(error) {
 }
 const sending = browser.runtime.sendMessage("initialize-pft");
 sending.then(handleResponse, handleError);
-
-
